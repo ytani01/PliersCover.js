@@ -141,12 +141,10 @@ class SvgPart1Outline extends SvgPath {
   }
 
   create_p_points(w1, w2, h1, h2, bw, bl) {
-    // 外枠の座標を生成
     let p_points = [];
-    let x0 = -(w2 / 2);
-    let y0 = 0;
+    let x0 = 0, y0 = 0;
 
-    let x = x0;
+    let x = x0 - (w2 / 2);
     let y = y0 + h1 + h2;
     p_points.push(new Point(x, y));
 
@@ -183,11 +181,8 @@ class SvgPart1Outline extends SvgPath {
   }
 
   create_svg_d(vp_origin, p_points) {
-    let x1 = 0;
-    let y1 = 0;
-    let x2 = 0;
-    let y2 = 0;
-    
+    let x1 = 0, y1 = 0;
+    let x2 = 0, y2 = 0;
     let d = "";
 
     this.rotate(vp_origin.rad);
@@ -262,12 +257,8 @@ class Part1 {
   }
 
   draw(origin, stroke_width) {  // origin == [x0, y0, rad0]
-    let x0 = origin[0];
-    let y0 = origin[1];
-    let rad0 = origin[2];
-    
-    let x = x0;
-    let y = y0;
+    let x0 = origin[0], y0 = origin[1], rad0 = origin[2];
+    let x = x0, y = y0;
     this.svg_outline.draw([x, y, rad0], "#0000FF", stroke_width);
 
     this.p_hole_center.rotate(rad0);
@@ -299,10 +290,8 @@ class Part2 {
   }
 
   draw(origin, stroke_width) {
-    let x0 = origin[0];
-    let y0 = origin[1];
-    let rad0 = origin[2];
-    
+    let x0 = origin[0], y0 = origin[1], rad0 = origin[2];
+
     this.svg_outline.draw([x0, y0, rad0], "#0000FF", stroke_width);
 
     this.p_hole_center.rotate(rad0);
