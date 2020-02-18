@@ -134,35 +134,11 @@ class SvgPolygon extends SvgPath {
   }
 }
 
-class SvgPart1Outline extends SvgObj {
+class SvgPart1Outline extends SvgPath {
   constructor(parent, w1, w2, h1, h2, bw, bl, bf) {
-    super(parent);
-    this.type = "path";
-    
+    super(parent, []);
     this.p_points = this.create_p_points(w1, w2, h1, h2, bw, bl);
     this.bw_bf = bw * bf;
-  }
-
-  draw(origin, color, stroke_width) {
-    let vp_origin = new Vpoint(origin[0], origin[1], origin[2]);
-    
-    this.svg_d = this.create_svg_d(vp_origin, this.p_points);
-    this.param = `d="${this.svg_d}"`;
-    super.draw(color, stroke_width);
-  }
-
-  rotate(rad) {
-    for (let p of this.p_points) {
-      p.rotate(rad);
-    }
-    return this;
-  }
-
-  mirror() {
-    for (let p of this.p_points) {
-      p.mirror();
-    }
-    return this;
   }
 
   create_p_points(w1, w2, h1, h2, bw, bl) {
@@ -238,36 +214,11 @@ class SvgPart1Outline extends SvgObj {
 
 class SvgNeedleHole extends SvgObj {
   constructor(parent, w, h, tf) {
-    super(parent);
-    this.type = "path";
-    
+    super(parent, []);
     this.w = w;
     this.h = h;
     this.tf = tf;
-
     this.p_points = this.create_p_points();
-  }
-
-  draw(origin, color, stroke_width) {
-    let vp_origin = new Vpoint(origin[0], origin[1], origin[2]);
-
-    this.svg_d = this.create_svg_d(vp_origin, this.p_points);
-    this.param = `d="${this.svg_d}"`;
-    super.draw(color, stroke_width);
-  }
-
-  rotate(rad) {
-    for (let p of this.p_points) {
-      p.rotate(rad);
-    }
-    return this;
-  }
-
-  mirror() {
-    for (let p of this.p_points) {
-      p.mirror();
-    }
-    return this;
   }
 
   create_p_points() {
@@ -391,32 +342,19 @@ function gen_svg(id_canvas, id_download) {
   const OFFSET_Y = 10;
 
   // parameters
-  let w1 = parseFloat(document.getElementById("w1").value);
-  let w2 = parseFloat(document.getElementById("w2").value);
-  let h1 = parseFloat(document.getElementById("h1").value);
-  let h2 = parseFloat(document.getElementById("h2").value);
-
-  let bw = parseFloat(document.getElementById("bw").value);
-  let bl = parseFloat(document.getElementById("bl").value);
-
-  let dia1 = parseFloat(document.getElementById("dia1").value);
-  let dia2 = parseFloat(document.getElementById("dia2").value);
-
-  let d1 = parseFloat(document.getElementById("d1").value);
-  let d2 = parseFloat(document.getElementById("d2").value);
-
-  let bf = parseFloat(document.getElementById("bf").value);
-
-  let needle_w = parseFloat(document.getElementById("needle_w").value);
-  let needle_h = parseFloat(document.getElementById("needle_h").value);
-  let needle_tf = parseFloat(document.getElementById("needle_tf").value);
+  let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl", "dia1", "dia2",
+		  "d1", "d2", "bf", "needle_w", "needle_h", "needle_tf"];
+  let opt = {};
+  for (let k of opt_list) {
+    opt[k] = parseFloat(document.getElementById(k).value);
+  }
 
   // make objects and draw them
   let x0 = OFFSET_X;
   let y0 = OFFSET_Y;
   
-  let canvas_width = x0 + w2 + x0 + w2 + x0;
-  let canvas_height = y0 + h1 + h2 + bl + y0;
+  let canvas_width = x0 + opt["w2"] + x0 + opt["w2"] + x0;
+  let canvas_height = y0 + opt["h1"] + opt["h2"] + opt["bl"] + y0;
   let canvas = new SvgCanvas("canvas", canvas_width, canvas_height);
 
   let frame = new SvgPolygon(canvas, [[0,0],
@@ -425,12 +363,18 @@ function gen_svg(id_canvas, id_download) {
 				      [0, canvas_height]]);
   frame.draw([0, 0, 0], "#000000", 1);
 
-  let part1 = new Part1(canvas, w1, w2, h1, h2, bw, bl, bf, dia1, d1, d2,
-			0, 0, 0, true);
+  let part1 = new Part1(canvas,
+			opt["w1"], opt["w2"], opt["h1"], opt["h2"],
+			opt["bw"], opt["bl"], opt["bf"],
+			opt["dia1"], opt["d1"], opt["d2"],
+			opt["neetle_w"],
+			opt["neetle_h"],
+			opt["neetle_tf"],
+			true);
   part1.draw([x0, y0, 0]);
 
-  x0 += w2 + 10;
-  let part2 = new Part2(canvas, part1, dia2);
+  x0 += opt["w2"] + 10;
+  let part2 = new Part2(canvas, part1, opt["dia2"]);
   part2.draw([x0, y0, 0]);
 
   canvas.display();

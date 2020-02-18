@@ -8,59 +8,76 @@
   <body>
     <div style="width:40%;float:left;">
       <form>
-	画面幅: <input id="svg_width" type="text" size="3" readonly>
-	<hr />
-	
-	<h1>Pliers Cover</h1>
+	Pliers Cover
 	<hr />
 	[ 基本パラメーター ]<br />
 
 	ベース:
 	<blockquote>
-	  先端の幅 <input id="w1" type="number" step="0.1" size="0" value="15"
-			  onChange="gen_svg('canvas', 'download_link')">
+	  先端の幅
+	  <input id="w1" type="number" step="0.1" size="0" value="15"
+		 style="width:50px"
+		 onChange="gen_svg('canvas', 'download_link')">
 	  <br />
-	  最大幅 <input id="w2" type="float" size="3" value="30"
-			onChange="gen_svg('canvas', 'download_link')">
+	  最大幅
+	  <input id="w2" type="number" step="0.1" value="30"
+		 style="width:50px"
+		 onChange="gen_svg('canvas', 'download_link')">
 	  <br />
-	  先端部の長さ <input id="h1" type="float" size="3" value="40"
-			      onChange="gen_svg('canvas', 'download_link')">
+	  先端部の長さ
+	  <input id="h1" type="number" step="0.1" value="40"
+		 style="width:50px"
+		 onChange="gen_svg('canvas', 'download_link')">
 	  <br />
-	  先端以外の長さ <input id="h2" type="float" size="3" value="20"
-				onChange="gen_svg('canvas', 'download_link')">
+	  先端以外の長さ
+	  <input id="h2" type="number" step="0.1" value="20"
+		 style="width:50px"
+		 onChange="gen_svg('canvas', 'download_link')">
 	</blockquote>
-	<br />
 	バンド:
-	幅 <input id="bw" type="float" size="3" value="15"
-		  onChange="gen_svg('canvas', 'download_link')">,
-	長さ <input id="bl" type="float" size="3" value="50"
-		    onChange="gen_svg('canvas', 'download_link')">
+	  幅 <input id="bw" type="number" step="0.1" value="15"
+		    style="width:50px"
+		    onChange="gen_svg('canvas', 'download_link')">,
+	  長さ <input id="bl" type="number" step="0.1" value="50"
+		      style="width:50px"
+		      onChange="gen_svg('canvas', 'download_link')">
 	<br />
 	留め具:
-	メス径 <input id="dia1" type="float" size="3" value="9"
-		      onChange="gen_svg('canvas', 'download_link')">,
-	オス径 <input id="dia2" type="float" size="3" value="9"
+	メス径 <input id="dia1" type="number" step="0.1" value="9"
+		      style="width:50px"
+		      onChange="gen_svg('canvas', 'download_link')">
+	オス径 <input id="dia2" type="number" step="0.1"  value="9"
+		      style="width:50px"
 		      onChange="gen_svg('canvas', 'download_link')">
 	<br />
 	縫いしろ・針穴:
-	縫いしろ <input id="d1" type="float" size="3" value="3"
-			onChange="gen_svg('canvas', 'download_link')">,
-	針穴間隔 <input id="d2" type="float" size="3" value="3"
+	縫いしろ <input id="d1" type="number" step="0.1" value="3"
+			style="width:50px"
+			onChange="gen_svg('canvas', 'download_link')">
+	針穴間隔 <input id="d2" type="number" step="0.1" value="3"
+			style="width:50px"
 			onChange="gen_svg('canvas', 'download_link')">
 	<hr />
 	[ 詳細パラメーター ]<br />
-	
+	<br />
 	バンド:
-	曲線係数(bf) <input id="bf" type="float" size="2.5" value="0.7">
+	曲線係数(bf) <input id="bf" type="number" step="0.1" value="0.7"
+			    style="width:50px"
+			    onChange="gen_svg('canvas', 'download_link')">
 	<br />
 	針穴:
-	幅: <input id="needle_w" type="float" size="2.5" value="1.5">,
-	高さ: <input id="needle_h" type="float" size="2.5" value="0.5">,
-	傾き係数:  <input id="needle_tf" type="float" size="2.5" value="0.0">
-	
-	<p>
-	  長さ: <input id="l1" type="text" size="3" value="3">
-	</p>
+	幅: <input id="needle_w" type="number" step="0.1" value="1.5"
+		   style="width:50px"
+		   onChange="gen_svg('canvas', 'download_link')">,
+	高さ: <input id="needle_h" type="number" step="0.1" value="0.5"
+		     style="width:50px"
+		     onChange="gen_svg('canvas', 'download_link')">,
+	傾き係数: <input id="needle_tf" type="number" step="0.1" value="0.0"
+			 style="width:50px"
+			 onChange="gen_svg('canvas', 'download_link')">
+	角の傾き調整: <input id="needle_tf" type="checkbox" value="checked"
+			 style="width:50px"
+			 onChange="gen_svg('canvas', 'download_link')">
 	<hr />
 	<input id="btn1" type="button" value="Create SVG"
 	       onClick="gen_svg('canvas', 'download_link')">
@@ -69,6 +86,13 @@
       </form>
     </div>
     <div style="width:60%;float:right">
+      画面幅: <input id="svg_width" type="number"
+		     style="width:50px"
+		     readonly>, 
+      画面高さ: <input id="svg_width" type="number"
+		     style="width:50px"
+		     readonly>
+      <hr />
       <p id="canvas">[描画領域]</p>
     </div>
     <hr />
