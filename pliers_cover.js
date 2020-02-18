@@ -93,6 +93,8 @@ class SvgPath extends SvgObj {
     let svg_d = "";
     let p0 = p_points.shift();
 
+    this.rotate(vp_origin.rad);
+
     svg_d = `M ${p0.x + vp_origin.x},${p0.y + vp_origin.y}`;
 
     for (let p1 of p_points) {
@@ -184,16 +186,16 @@ class SvgPart1Outline extends SvgPath {
   }
 
   create_svg_d(vp_origin, p_points) {
-    let x0 = vp_origin.x;
-    let y0 = vp_origin.y;
-    let x1 = 0; let y1 = 0;
-    let x2 = 0; let y2 = 0;
+    let x1 = 0;
+    let y1 = 0;
+    let x2 = 0;
+    let y2 = 0;
     
     let d = "";
 
     for (let i=0; i < p_points.length; i++) {
-      x1 = x0 + p_points[i].x;
-      y1 = y0 + p_points[i].y;
+      x1 = vp_origin.x + p_points[i].x;
+      y1 = vp_origin.y + p_points[i].y;
 
       if ( i == 0 ) {
 	d = `M ${x1},${y1}`;
@@ -257,6 +259,9 @@ class Part1 {
     this.svg_hole = new SvgCircle(parent, this.dia1 / 2);
   }
 
+  //
+  // origin == [x0, y0, rad0]
+  //
   draw(origin) {
     let x0 = origin[0];
     let y0 = origin[1];
@@ -300,8 +305,7 @@ class Part2 {
     this.svg_outline.draw([x, y, rad0], "#0000FF", 0.5);
 
     x = x0 + this.part1.w2 / 2;
-    y = y0 + this.part1.h1 + this.part1.h2
-      - this.svg_hole.r - this.part1.d1;
+    y = y0 + this.part1.h1 + this.part1.h2 - this.svg_hole.r - this.part1.d1;
     this.svg_hole.draw([x, y, rad0], "#FF0000", 0.5);
   }
 }
