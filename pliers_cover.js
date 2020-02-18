@@ -12,7 +12,7 @@ class Point {
     return Math.sqrt((c.x - this.x) ** 2 + (c.y - this.y) ** 2);
   }
 
-  rotate(self, rad) {
+  rotate(rad) {
     let new_x = Math.cos(rad) * this.x - Math.sin(rad) * this.y;
     let new_y = Math.sin(rad) * this.x + Math.cos(rad) * this.y;
     this.x = new_x;
@@ -91,9 +91,10 @@ class SvgPath extends SvgObj {
 
   create_svg_d(vp_origin, p_points) {
     let svg_d = "";
-    let p0 = p_points.shift();
 
     this.rotate(vp_origin.rad);
+
+    let p0 = p_points.shift();
 
     svg_d = `M ${p0.x + vp_origin.x},${p0.y + vp_origin.y}`;
 
@@ -193,6 +194,8 @@ class SvgPart1Outline extends SvgPath {
     
     let d = "";
 
+    this.rotate(vp_origin.rad);
+
     for (let i=0; i < p_points.length; i++) {
       x1 = vp_origin.x + p_points[i].x;
       y1 = vp_origin.y + p_points[i].y;
@@ -257,23 +260,24 @@ class Part1 {
     this.svg_outline = new SvgPart1Outline(parent,
 					   w1, w2, h1, h2, bw, bl, bf);
     this.svg_hole = new SvgCircle(parent, this.dia1 / 2);
+    let cx = 0;
+    let cy = this.h1 + this.h2 + this.bl - this.bw / 2;
+    this.p_hole_center = new Point(cx, cy);
   }
 
-  //
-  // origin == [x0, y0, rad0]
-  //
-  draw(origin) {
+  draw(origin) {  // origin == [x0, y0, rad0]
     let x0 = origin[0];
     let y0 = origin[1];
     let rad0 = origin[2];
     
-    let x = x0 + this.w2 / 2;
+    let x = x0;
     let y = y0;
     this.svg_outline.draw([x, y, rad0], "#0000FF", 0.5);
 
-    x = x0 + this.w2 / 2;
-    y = y0 + this.h1 + this.h2 + this.bl - this.bw / 2;
-    this.svg_hole.draw([x, y, rad0], "#FF0000", 0.5);
+    this.p_hole_center.rotate(rad0);
+    let cx = x0 + this.p_hole_center.x;
+    let cy = y0 + this.p_hole_center.y;
+    this.svg_hole.draw([cx, cy, 0], "#FF0000", 0.5);
   }
 
 }
@@ -293,20 +297,22 @@ class Part2 {
     this.svg_outline = new SvgPolygon(parent, this.points_outline);
 
     this.svg_hole = new SvgCircle(parent, this.dia2 / 2);
+    let cx = 0;
+    let cy = this.part1.h1 + this.part1.h2 - this.svg_hole.r - this.part1.d1;
+    this.p_hole_center = new Point(cx, cy);
   }
 
   draw(origin) {
     let x0 = origin[0];
     let y0 = origin[1];
     let rad0 = origin[2];
+    
+    this.svg_outline.draw([x0, y0, rad0], "#0000FF", 0.5);
 
-    let x = x0 + this.part1.w2 / 2;
-    let y = y0;
-    this.svg_outline.draw([x, y, rad0], "#0000FF", 0.5);
-
-    x = x0 + this.part1.w2 / 2;
-    y = y0 + this.part1.h1 + this.part1.h2 - this.svg_hole.r - this.part1.d1;
-    this.svg_hole.draw([x, y, rad0], "#FF0000", 0.5);
+    this.p_hole_center.rotate(rad0);
+    let cx = x0 + this.p_hole_center.x;
+    let cy = y0 + this.p_hole_center.y;
+    this.svg_hole.draw([cx, cy, 0], "#FF0000", 0.5);
   }
 }
 
@@ -314,9 +320,15 @@ class SvgCanvas {
   constructor(id, w, h) {
     this.id = id;
 
+    console.log(`screen: ${window.innerWidth}, ${window.innerHeight}`);
+    this.svg_w = window.innerWidth * 0.5;
+    this.svg_h = window.innerHeight * 0.8;
+
     this.header = '<svg xmlns="http://www.w3.org/2000/svg"';
     this.header += ' version="1.1"';
-    this.header += ' width="500" height="400"';
+    this.header += ` width="${this.svg_w}"`;
+    // this.header += ` height="${this.svg_h}"`;
+    this.header += ` width="${this.svg_w}" height="${this.svg_h}"`;
     this.header += ` viewBox="0 0 ${w} ${h}">\n`;
 
     this.footer = '</svg>\n';
@@ -347,38 +359,48 @@ function gen_svg(id_canvas, id_download) {
 
   // parameters
   let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl", "dia1", "dia2",
-		  "d1", "d2", "bf", "needle_w", "needle_h", "needle_tf"];
+		  "d1", "d2", "bf",
+		  "needle_w", "needle_h", "needle_tf"];
   let opt = {};
   for (let k of opt_list) {
     opt[k] = parseFloat(document.getElementById(k).value);
   }
+  opt.needle_rot = (document.getElementById("needle_rot").value == "true");
 
   // make objects and draw them
   let x0 = OFFSET_X;
   let y0 = OFFSET_Y;
   
-  let canvas_width = x0 + opt["w2"] + x0 + opt["w2"] + x0;
-  let canvas_height = y0 + opt["h1"] + opt["h2"] + opt["bl"] + y0;
+  //
+  // draw canvas
+  //
+  let canvas_width = x0 + opt.w2 + x0 + opt.w2 + x0;
+  let canvas_height = y0 + opt.h1 + opt.h2 + opt.bl + y0;
   let canvas = new SvgCanvas("canvas", canvas_width, canvas_height);
 
   let frame = new SvgPolygon(canvas, [[0,0],
 				      [canvas_width, 0],
 				      [canvas_width, canvas_height],
 				      [0, canvas_height]]);
-  frame.draw([0, 0, 0], "#000000", 1);
+  //frame.draw([0, 0, 0], "#000000", 1);
 
+  //
+  // draw part1
+  //
+  x0 += opt.w2 / 2;
   let part1 = new Part1(canvas,
-			opt["w1"], opt["w2"], opt["h1"], opt["h2"],
-			opt["bw"], opt["bl"], opt["bf"],
-			opt["dia1"], opt["d1"], opt["d2"],
-			opt["neetle_w"],
-			opt["neetle_h"],
-			opt["neetle_tf"],
-			true);
+			opt.w1, opt.w2, opt.h1, opt.h2,
+			opt.bw, opt.bl, opt.bf,
+			opt.dia1, opt.d1, opt.d2,
+			opt.neetle_w, opt.neetle_h, opt.neetle_tf,
+			opt.needle_rot);
   part1.draw([x0, y0, 0]);
 
-  x0 += opt["w2"] + 10;
-  let part2 = new Part2(canvas, part1, opt["dia2"]);
+  //
+  // draw part2
+  //
+  x0 += opt.w2 + 10;
+  let part2 = new Part2(canvas, part1, opt.dia2);
   part2.draw([x0, y0, 0]);
 
   canvas.display();
