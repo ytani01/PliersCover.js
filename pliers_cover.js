@@ -90,13 +90,10 @@ class SvgPath extends SvgObj {
   }
 
   create_svg_d(vp_origin, p_points) {
-    let svg_d = "";
-
     this.rotate(vp_origin.rad);
 
     let p0 = p_points.shift();
-
-    svg_d = `M ${p0.x + vp_origin.x},${p0.y + vp_origin.y}`;
+    let svg_d = `M ${p0.x + vp_origin.x},${p0.y + vp_origin.y}`;
 
     for (let p1 of p_points) {
       svg_d += ` L ${p1.x + vp_origin.x},${p1.y + vp_origin.y}`;
@@ -106,7 +103,6 @@ class SvgPath extends SvgObj {
 
   draw(origin, color, stroke_width) {
     let vp_origin = new Vpoint(origin[0], origin[1], origin[2]);
-    
     this.svg_d = this.create_svg_d(vp_origin, this.p_points);
     this.param = `d="${this.svg_d}"`;
     super.draw(color, stroke_width);
@@ -265,19 +261,19 @@ class Part1 {
     this.p_hole_center = new Point(cx, cy);
   }
 
-  draw(origin) {  // origin == [x0, y0, rad0]
+  draw(origin, stroke_width) {  // origin == [x0, y0, rad0]
     let x0 = origin[0];
     let y0 = origin[1];
     let rad0 = origin[2];
     
     let x = x0;
     let y = y0;
-    this.svg_outline.draw([x, y, rad0], "#0000FF", 0.5);
+    this.svg_outline.draw([x, y, rad0], "#0000FF", stroke_width);
 
     this.p_hole_center.rotate(rad0);
     let cx = x0 + this.p_hole_center.x;
     let cy = y0 + this.p_hole_center.y;
-    this.svg_hole.draw([cx, cy, 0], "#FF0000", 0.5);
+    this.svg_hole.draw([cx, cy, 0], "#FF0000", stroke_width);
   }
 
 }
@@ -302,17 +298,17 @@ class Part2 {
     this.p_hole_center = new Point(cx, cy);
   }
 
-  draw(origin) {
+  draw(origin, stroke_width) {
     let x0 = origin[0];
     let y0 = origin[1];
     let rad0 = origin[2];
     
-    this.svg_outline.draw([x0, y0, rad0], "#0000FF", 0.5);
+    this.svg_outline.draw([x0, y0, rad0], "#0000FF", stroke_width);
 
     this.p_hole_center.rotate(rad0);
     let cx = x0 + this.p_hole_center.x;
     let cy = y0 + this.p_hole_center.y;
-    this.svg_hole.draw([cx, cy, 0], "#FF0000", 0.5);
+    this.svg_hole.draw([cx, cy, 0], "#FF0000", stroke_width);
   }
 }
 
@@ -356,8 +352,11 @@ class SvgCanvas {
 function gen_svg(id_canvas, id_download) {
   const OFFSET_X = 10;
   const OFFSET_Y = 10;
+  const STROKE_WIDTH = 0.5;
 
+  //
   // parameters
+  //
   let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl", "dia1", "dia2",
 		  "d1", "d2", "bf",
 		  "needle_w", "needle_h", "needle_tf"];
@@ -367,7 +366,9 @@ function gen_svg(id_canvas, id_download) {
   }
   opt.needle_rot = (document.getElementById("needle_rot").value == "true");
 
+  //
   // make objects and draw them
+  //
   let x0 = OFFSET_X;
   let y0 = OFFSET_Y;
   
@@ -382,7 +383,7 @@ function gen_svg(id_canvas, id_download) {
 				      [canvas_width, 0],
 				      [canvas_width, canvas_height],
 				      [0, canvas_height]]);
-  //frame.draw([0, 0, 0], "#000000", 1);
+  //frame.draw([0, 0, 0], "#000000", STROKE_WIDTH);
 
   //
   // draw part1
@@ -394,14 +395,14 @@ function gen_svg(id_canvas, id_download) {
 			opt.dia1, opt.d1, opt.d2,
 			opt.neetle_w, opt.neetle_h, opt.neetle_tf,
 			opt.needle_rot);
-  part1.draw([x0, y0, 0]);
+  part1.draw([x0, y0, 0], STROKE_WIDTH);
 
   //
   // draw part2
   //
   x0 += opt.w2 + 10;
   let part2 = new Part2(canvas, part1, opt.dia2);
-  part2.draw([x0, y0, 0]);
+  part2.draw([x0, y0, 0], STROKE_WIDTH);
 
   canvas.display();
   canvas.set_download(id_download);
