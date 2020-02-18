@@ -5,3 +5,4 @@
 * ``SvgPart1Outline``などのスーパークラスを
 ``SvgObj``ではなく、``SvgPath``にする。
 
+
