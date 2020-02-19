@@ -6,7 +6,7 @@
 
 ## 概要
 
-[Demo URL](https://ytani01.github.io/PliersCover.js/pliers_cover.html){:target="_blank"}
+[Demo URL](https://ytani01.github.io/PliersCover.js/pliers_cover.html){:target="_blank"  rel="noopener"}
 
 ラジオペンチやニッパーなどの工具カバーのレザークラフト用図面を自動作成する
 Inkscapeエクステンション(拡張機能)です。
