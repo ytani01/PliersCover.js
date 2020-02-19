@@ -4,7 +4,7 @@
 
 [![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
 
-https://ytani01.github.io/PliersCover.js/pliers_cover.html
+[https://ytani01.github.io/PliersCover.js/pliers_cover.html](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
 
 
 ## 概要
