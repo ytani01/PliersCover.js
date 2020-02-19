@@ -1,12 +1,12 @@
-# PliersCover JavaScript
-
-https://ytani01.github.io/PliersCover.js/
+# [PliersCover JavaScript](https://ytani01.github.io/PliersCover.js/)
 
 工具カバーのレザークラフト用図面を自動作成 (Inkscape extension)
 
 ![sample1](docs/sample1.png)
 
 ## 概要
+
+[Demo URL](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
 
 ラジオペンチやニッパーなどの工具カバーのレザークラフト用図面を自動作成する
 Inkscapeエクステンション(拡張機能)です。
