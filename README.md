@@ -6,7 +6,7 @@
 
 ## 概要
 
-[Demo URL](https://ytani01.github.io/PliersCover.js/pliers_cover.html){:target="_blank"  rel="noopener"}
+[Demo URL](https://ytani01.github.io/PliersCover.js/pliers_cover.html){target="_blank"  rel="noopener"}
 
 <a href="https://ytani01.github.io/PliersCover.js/pliers_cover.html" target="_blank" rel="noopener">aaa</a>
 
