@@ -1,10 +1,10 @@
 # PliersCover JavaScript
 
-[**ここ**](docs/pliers_cover.html)
+https://ytani01.github.io/PliersCover.js/
 
 工具カバーのレザークラフト用図面を自動作成 (Inkscape extension)
 
-![工具の写真と重ねる](docs/sample2.png)
+![sample1](docs/sample1.png)
 
 ## 概要
 
