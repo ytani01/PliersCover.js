@@ -43,7 +43,7 @@ SVG形式でファイルに保存し、
 
 ダウンロードして、``pliers_cover.html``をブラウザで開いてください。
 
-必要なファイル
+実行に必要なファイルは、以下の2つだけです。
 * pliers_cover.html
 * pliers_cover.js
 
