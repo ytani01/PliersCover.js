@@ -46,6 +46,8 @@ class Vpoint extends Point {
 }
 
 class SvgObj {
+  MM_PX = 3.543307;
+
   constructor(parent) {
     this.parent = parent;
     this.type = "";
@@ -56,7 +58,7 @@ class SvgObj {
     let style = 'fill:none;';
     style = "fill:none;";
     style += `stroke:${color};`;
-    style += `stroke-width:${stroke_width}mm;`;
+    style += `stroke-width:${stroke_width * MM_PX};`;
     style += "stroke-dasharray:none";
     
     this.svg_text = `<${this.type} style="${style}" ${this.param} />`;
