@@ -465,7 +465,7 @@ class SvgCanvas {
   }
 }
 
-function gen_svg(id_canvas) {
+function gen_svg(id_canvas, id_download) {
   const OFFSET_X = 10;
   const OFFSET_Y = 10;
   const STROKE_WIDTH = 0.3;
@@ -522,13 +522,13 @@ function gen_svg(id_canvas) {
 
   let svg_text = canvas.display();
 
+  let blob = new Blob([ svg_text ], {"type": "text/plain"});
+  document.getElementById(id_download).href
+    = window.URL.createObjectURL(blob);
+
   return svg_text
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  svg_text = gen_svg();
-
-  let blob = new Blob([ svg_text ], {"type": "text/plain"});
-  document.getElementById("download_link").href
-    = window.URL.createObjectURL(blob);
+  svg_text = gen_svg("canvas", "download_link");
 });
