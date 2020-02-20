@@ -446,7 +446,7 @@ class SvgCanvas {
     this.header += ` width="${w}mm" height="${h}mm"`;
     this.header += ` viewBox="0 0 ${w} ${h}">\n`;
 
-    this.footer = '</svg>\n';
+    this.footer = '</svg>';
 
     this.objs = "";
 
@@ -468,7 +468,7 @@ class SvgCanvas {
 function gen_svg(id_canvas, id_download) {
   const OFFSET_X = 10;
   const OFFSET_Y = 10;
-  const STROKE_WIDTH = 0.3;
+  const STROKE_WIDTH = 0.2;
 
   //
   // parameters
