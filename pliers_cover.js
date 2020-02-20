@@ -471,7 +471,7 @@ class SvgCanvas {
 function gen_svg(id_canvas, id_download) {
   const OFFSET_X = 10;
   const OFFSET_Y = 10;
-  const STROKE_WIDTH = 0.5;
+  const STROKE_WIDTH = 0.3;
 
   //
   // parameters
