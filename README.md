@@ -43,6 +43,10 @@
 
 ダウンロードして、``pliers_cover.html``をブラウザで開いてください。
 
+必要なファイル
+* pliers_cover.html
+* pliers_cover.js
+
 
 ### 2.1 ダウンロード
 
