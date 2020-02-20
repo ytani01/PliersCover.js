@@ -56,7 +56,7 @@ class SvgObj {
     let style = 'fill:none;';
     style = "fill:none;";
     style += `stroke:${color};`;
-    style += `stroke-width:${stroke_width};`;
+    style += `stroke-width:${stroke_width}mm;`;
     style += "stroke-dasharray:none";
     
     this.svg_text = `<${this.type} style="${style}" ${this.param} />`;
