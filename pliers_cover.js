@@ -443,9 +443,7 @@ class SvgCanvas {
 
     this.header = '<svg xmlns="http://www.w3.org/2000/svg"';
     this.header += ' version="1.1"';
-    this.header += ` width="${this.svg_w}mm"`;
-    this.header += ` height="${this.svg_h}mm"`;
-    // this.header += ` width="${this.svg_w}" height="${this.svg_h}"`;
+    this.header += ` width="${w}mm" height="${h}mm"`;
     this.header += ` viewBox="0 0 ${w} ${h}">\n`;
 
     this.footer = '</svg>\n';
