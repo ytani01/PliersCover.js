@@ -443,7 +443,7 @@ class SvgCanvas {
     this.header += ' version="1.1"';
     this.header += ` width="${this.svg_w}"`;
     // this.header += ` height="${this.svg_h}"`;
-    this.header += ` width="${this.svg_w}" height="${this.svg_h}"`;
+    // this.header += ` width="${this.svg_w}" height="${this.svg_h}"`;
     this.header += ` viewBox="0 0 ${w} ${h}">\n`;
 
     this.footer = '</svg>\n';
@@ -495,12 +495,6 @@ function gen_svg(id_canvas, id_download) {
   let canvas_height = y0 + opt.h1 + opt.h2 + opt.bl + y0;
   let canvas = new SvgCanvas("canvas", canvas_width, canvas_height);
 
-  let frame = new SvgPolygon(canvas, [[0,0],
-				      [canvas_width, 0],
-				      [canvas_width, canvas_height],
-				      [0, canvas_height]]);
-  //frame.draw([0, 0, 0], "#000000", STROKE_WIDTH);
-
   //
   // draw part1
   //
@@ -520,13 +514,18 @@ function gen_svg(id_canvas, id_download) {
   let part2 = new Part2(canvas, part1, opt.dia2);
   part2.draw([x0, y0, 0], STROKE_WIDTH);
 
+  //
+  // display and generate SVG text
+  //
   let svg_text = canvas.display();
 
+  //
+  // update download link
+  //
   let blob = new Blob([ svg_text ], {"type": "text/plain"});
-  document.getElementById(id_download).href
-    = window.URL.createObjectURL(blob);
+  document.getElementById(id_download).href = window.URL.createObjectURL(blob);
 
-  return svg_text
+  return svg_text;
 }
 
 window.addEventListener('DOMContentLoaded', function() {
