@@ -3,7 +3,7 @@
 工具カバーのレザークラフト用図面を自動作成 (JavaScript)
 
 [![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)<br />
-[https://ytani01.github.io/PliersCover.js/pliers_cover.html](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
+こちら: [https://ytani01.github.io/PliersCover.js/pliers_cover.html](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
 
 
 ## 概要
@@ -21,7 +21,7 @@ Inkscapeエクステンション(拡張機能)です。
 針穴は菱目で、位置は、必ず角に来るように自動的に調整されます。
 
 
-## 1. インストール
+## 1. ローカルで使う場合
 
 1. ダウンロード
 2. ファイルのコピー
