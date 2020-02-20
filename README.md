@@ -19,10 +19,12 @@
 
 針穴は菱目で、必ず角に来るように自動的に調整されます。
 
-[![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)<br />
 
 ## 1. 使い方
 
+[![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)<br />
+
+<img src="docs/sample1.png" width="50%>
 * 入力欄にサイズを入力
 * 入力欄のどれかを一つでも変更すると、
 その場で直ちに描画され、SVGが生成されます。
