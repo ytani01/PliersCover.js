@@ -530,5 +530,5 @@ function gen_svg(id_canvas, id_download) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  svg_text = gen_svg("canvas", "download_link");
+  let svg_text = gen_svg("canvas", "download_link");
 });
