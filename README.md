@@ -2,7 +2,6 @@
 
 工具カバーのレザークラフト用図面を自動作成 (JavaScript)
 
-[![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)<br />
 こちら: [https://ytani01.github.io/PliersCover.js/pliers_cover.html](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
 
 
@@ -20,6 +19,7 @@
 
 針穴は菱目で、必ず角に来るように自動的に調整されます。
 
+[![sample1](docs/sample1.png)](https://ytani01.github.io/PliersCover.js/pliers_cover.html)<br />
 
 ## 1. 使い方
 
@@ -54,23 +54,14 @@ ZIP形式のファイルをダウンロードして展開するか、
 
 #### 2.1.1 ZIPファイルをダウンロードして展開する方法
 
-![](docs/github1.png)
+![github](docs/github1.png)
 
 
 #### 2.1.2 Gitリポジトリをクローン(clone)する方法
 
-* 通常のやり方
-
 ```bash
 $ git clone https://github.com/ytani01/PlierCover.js.git
 ```
-
-* githubにsshの設定をしている場合
-
-```bash
-$ git clone git@github.com:ytani01/PlierCover.js.git
-```
-
 
 
 ## A. Memo
@@ -100,4 +91,4 @@ ex: d="M 50,60 H 60 l 20,50 Z"
 ## B. 参考
 
 * [Kerf Check Parts Generator](http://doyolab.net/appli/kerf_check/kerf_check.html)
-* [PlierCover](https://github.com/ytani01/PliersCover)
+* [PlierCover Inkscape extension](https://github.com/ytani01/PliersCover)
