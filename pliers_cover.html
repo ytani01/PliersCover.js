@@ -3,14 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=4">
+
+    <title>PliersCover.js</title>
+
     <script src="pliers_cover.js"></script>
-    <title>Pliers Cover</title>
+    <style>
+      h1 {
+      background-color:#FFFFFF;
+      text-align:center;
+      }
+      .abstract {
+      background-color:#FFFFFF;
+      text-align:center;
+      }
+      .area {
+      display: inline; display: inline-block; _display: inline;
+      background-color:#F8F8F8;
+      vertical-align:top;
+      }
+      .canvas {
+      background-color:#DDDDDD;
+      border-style:solid;
+      border-color:#FFFFFF;
+      border-width:5px;
+      }
+    </style>
   </head>
-  <body>
-    <div style="width:40%;float:left;">
+  <body style="background-color:#CCCCCC;">
+    <h1>PliersCover.js: 工具カバー図面ジェネレータ</h1>
+    <div class="abstract">
+      <p>
+	ペンチやニッパーなど工具カバーの図面を自動生成します。
+      </p>
+      <p>
+	[Download SVG]で保存したファイルは、
+	レーザーカッターの入力データとして利用できます。
+      </p>
+    </div>
+    <hr />
+    <div class="area" id="area_param" style="width:30%;">
       <form>
-	Pliers Cover
-	<hr />
 	<ul>
 	  <li>[ 基本パラメーター ]</li>
 	  <ul>
@@ -73,6 +105,7 @@
 
 	  <li>[ 詳細パラメーター ]</li>
 	  <ul>
+	    <div hidden>
 	    <li>バンド:</li>
 	    <ul>
 	      <li>曲線係数
@@ -80,6 +113,7 @@
 		       style="width:50px"
 		       onChange="gen_svg('canvas', 'download_link')"></li>
 	    </ul>
+	    </div>
 	    
 	    <li>針穴:</li>
 	    <ul>
@@ -102,20 +136,14 @@
 	    </ul>
 	  </ul>
 	</ul>
-	<hr />
-	<!-- 不要
-	<input id="btn1" type="button" value="Create SVG"
-	       onClick="gen_svg('canvas', 'download_link')">
-	-->
       </form>
-    </div><div style="width:60%;float:right;">
-	<a id="download_link" href="#" download="pliers_cover.svg">
+    </div><div class="area" style="width:70%;text-align:center;">
+      <a id="download_link" href="#" download="pliers_cover.svg">
 	  <input id="btn2" type="button" value="Download SVG"></a>
-	<table border="1">
-	  <tbody>
-	    <tr><td><div id="canvas"></div></td></tr>
-    	  </tbody>
-	</table>
+      <div class="canvas" id="canvas" style="background-color:#F0F0F0;"></div>
     </div>
+    <hr />
+    <div style="text-align: right;">(C) 2020
+      <a href="https://ytani01.github.io/PliersCover.js/">ytani01</a>
   </body>
 </html>

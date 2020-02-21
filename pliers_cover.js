@@ -434,14 +434,26 @@ class Part2 {
 }
 
 class SvgCanvas {
+  WIDTH_RATE = 0.6
+
   constructor(id, w, h) {
     this.id = id;
 
-    console.log(`screen: ${window.innerWidth}, ${window.innerHeight}`);
-    this.svg_w = window.innerWidth * 0.5;
-    this.svg_h = window.innerHeight * 0.8;
+    this.width = window.innerWidth * this.WIDTH_RATE;
+    this.table_width = this.width * 0.88;
 
-    this.header = '<svg xmlns="http://www.w3.org/2000/svg"';
+    console.log(`screen: ${window.innerWidth}, ${window.innerHeight}`);
+    console.log(`width=${this.width}, table_width=${this.table_width}`);
+
+    /*
+    document.getElementById("area_param").style.width = `${window.innerWidth - this.width}`;
+    document.getElementById("area_canvas").style.width = `${this.width}`;
+    document.getElementById("table_canvas").setAttribute("width",
+							 `${this.table_width}`);
+    */
+						
+    this.header = `<svg width="${this.table_width}"`;
+    this.header += ' xmlns="http://www.w3.org/2000/svg"';
     this.header += ' version="1.1"';
     this.header += ` width="${w}mm" height="${h}mm"`;
     this.header += ` viewBox="0 0 ${w} ${h}">\n`;
@@ -529,5 +541,10 @@ function gen_svg(id_canvas, id_download) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
+  let svg_text = gen_svg("canvas", "download_link");
+});
+
+// タイマーを設定した方がいい。
+window.addEventListener('resize', function() {
   let svg_text = gen_svg("canvas", "download_link");
 });
