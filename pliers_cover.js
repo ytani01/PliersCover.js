@@ -538,7 +538,7 @@ window.addEventListener('DOMContentLoaded', function() {
   let svg_text = gen_svg("canvas", "download_link");
 });
 
-// タイマーを設定した方がいい。
+// タイマーを設定した方がいい?
 window.addEventListener('resize', function() {
   let svg_text = gen_svg("canvas", "download_link");
 });
