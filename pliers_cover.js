@@ -374,9 +374,10 @@ class Part1 {
 }
 
 class Part2 {
-  constructor(parent, part1, dia2) {
+  constructor(parent, part1, dia2a, dia2) {
     this.parent = parent;
     this.part1 = part1;
+    this.dia2a = dia2a;
     this.dia2 = dia2;
 
     // アウトライン
@@ -392,7 +393,7 @@ class Part2 {
     // 留め具の穴
     this.svg_hole = new SvgCircle(parent, this.dia2 / 2);
     let cx = 0;
-    let cy = this.part1.h1 + this.part1.h2 - this.svg_hole.r - this.part1.d1;
+    let cy = this.part1.h1 + this.part1.h2 - this.dia2a / 2 - this.part1.d1;
     this.p_hole_center = new Point(cx, cy);
 
     // 針穴
@@ -445,13 +446,6 @@ class SvgCanvas {
     console.log(`screen: ${window.innerWidth}, ${window.innerHeight}`);
     console.log(`width=${this.width}, table_width=${this.table_width}`);
 
-    /*
-    document.getElementById("area_param").style.width = `${window.innerWidth - this.width}`;
-    document.getElementById("area_canvas").style.width = `${this.width}`;
-    document.getElementById("table_canvas").setAttribute("width",
-							 `${this.table_width}`);
-    */
-						
     this.header = '<svg xmlns="http://www.w3.org/2000/svg"';
     this.header += ' version="1.1"';
     this.header += ` width="${w}mm" height="${h}mm"`;
@@ -484,7 +478,8 @@ function gen_svg(id_canvas, id_download) {
   //
   // parameters
   //
-  let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl", "dia1", "dia2",
+  let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl",
+		  "dia1a", "dia1", "dia2a", "dia2",
 		  "d1", "d2", "bf",
 		  "needle_w", "needle_h", "needle_tf"];
   let opt = {};

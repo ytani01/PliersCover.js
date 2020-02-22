@@ -80,12 +80,20 @@
 
 	    <li>留め具:</li>
 	    <ul>
-	      <li>メス径:
-		<input id="dia1" type="number" step="0.1" value="8"
+	      <li>メス外径:
+		<input id="dia1a" type="number" step="0.1" value="8"
 		       style="width:50px"
 		       onChange="gen_svg('canvas', 'download_link')"></li>
-	      <li>オス径:
-		<input id="dia2" type="number" step="0.1"  value="8"
+	      <li>メス内径:
+		<input id="dia1" type="number" step="0.1" value="3"
+		       style="width:50px"
+		       onChange="gen_svg('canvas', 'download_link')"></li>
+	      <li>オス外径:
+		<input id="dia2a" type="number" step="0.1"  value="8"
+		       style="width:50px"
+		       onChange="gen_svg('canvas', 'download_link')"></li>
+	      <li>オス内径:
+		<input id="dia2" type="number" step="0.1"  value="3"
 		       style="width:50px"
 		       onChange="gen_svg('canvas', 'download_link')"></li>
 	    </ul>
@@ -118,11 +126,11 @@
 	    <li>針穴:</li>
 	    <ul>
 	      <li>幅:
-		<input id="needle_w" type="number" step="0.1" value="1"
+		<input id="needle_w" type="number" step="0.1" value="2"
 		       style="width:50px"
 		       onChange="gen_svg('canvas', 'download_link')"></li>
 	      <li>高さ:
-		<input id="needle_h" type="number" step="0.1" value="1"
+		<input id="needle_h" type="number" step="0.1" value="0.5"
 		       style="width:50px"
 		       onChange="gen_svg('canvas', 'download_link')"></li>
 	      <li>傾き係数:
