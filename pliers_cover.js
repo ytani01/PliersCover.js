@@ -517,7 +517,7 @@ function gen_svg(id_canvas, id_download) {
   // draw part2
   //
   x0 += opt.w2 + 10;
-  let part2 = new Part2(canvas, part1, opt.dia2);
+  let part2 = new Part2(canvas, part1, opt.dia2a, opt.dia2);
   part2.draw([x0, y0, 0], STROKE_WIDTH);
 
   //
