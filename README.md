@@ -2,7 +2,8 @@
 
 工具カバーのレザークラフト用図面を自動作成 (JavaScript)
 
-[【使ってみる！】 https://ytani01.github.io/PliersCover.js/pliers_cover.html](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
+[``【使ってみる！】``](https://ytani01.github.io/PliersCover.js/pliers_cover.html)
+
 
 
 ## 概要
