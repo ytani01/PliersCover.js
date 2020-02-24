@@ -211,20 +211,20 @@ class SvgPart1Outline extends SvgPath {
 }
 
 class SvgNeedleHole extends SvgPolygon {
-  constructor(parent, w, h, tf) {
+  constructor(parent, w, h, ang) {
     super(parent, []);
     this.w = w;
     this.h = h;
-    this.tf = tf;
+    this.ang = ang;
     this.p_points = this.create_p_points();
   }
 
   create_p_points() {
     let p_points = [];
-    p_points.push(new Point(-this.w / 2,  this.h * this.tf));
-    p_points.push(new Point( this.w / 2,  this.h * (1 - this.tf)));
-    p_points.push(new Point( this.w / 2, -this.h * this.tf));
-    p_points.push(new Point(-this.w / 2, -this.h * (1 - this.tf)));
+    p_points.push(new Point(-this.w / 2,           0).rotate(this.ang));
+    p_points.push(new Point(          0,  this.h / 2).rotate(this.ang));
+    p_points.push(new Point( this.w / 2,           0).rotate(this.ang));
+    p_points.push(new Point(          0, -this.h / 2).rotate(this.ang));
     return p_points;
   }
 }
@@ -232,7 +232,7 @@ class SvgNeedleHole extends SvgPolygon {
 class Part1 {
   constructor(parent,
 	      w1, w2, h1, h2, bw, bl, bf, dia1, d1, d2,
-	      needle_w, needle_h, needle_tf, needle_rot) {
+	      needle_w, needle_h, needle_ang, needle_rot) {
     this.parent = parent;
     this.w1 = w1;
     this.w2 = w2;
@@ -246,7 +246,7 @@ class Part1 {
     this.d2 = d2;
     this.needle_w = needle_w;
     this.needle_h = needle_h;
-    this.needle_tf = needle_tf;
+    this.needle_ang = needle_ang;
     this.needle_rot = needle_rot;
 
     // 図形作成
@@ -263,7 +263,7 @@ class Part1 {
     for (let v of this.vp_needle) {
       let svg_nh = new SvgNeedleHole(this.parent,
 				     this.needle_w, this.needle_h,
-				     this.needle_tf);
+				     this.needle_ang);
       this.svg_needle_hole.push([svg_nh, v]);
     }
   }
@@ -406,7 +406,7 @@ class Part2 {
       let svg_nh = new SvgNeedleHole(this.parent,
 				     this.part1.needle_w,
 				     this.part1.needle_h,
-				     this.part1.needle_tf);
+				     this.part1.needle_ang);
       svg_nh.mirror();
       this.svg_needle_hole.push([svg_nh, v]);
     }
@@ -470,23 +470,44 @@ class SvgCanvas {
   }
 }
 
-function gen_svg(id_canvas, id_download) {
-  const OFFSET_X = 10;
-  const OFFSET_Y = 10;
-  const STROKE_WIDTH = 0.2;
+function gen_svg(params) {
+  const OFFSET_X = 5;
+  const OFFSET_Y = 5;
+  const STROKE_WIDTH = 0.15;
+
+  const id_canvas = "canvas";
+  const id_download = "download_link";
+  const id_save_params = "save_params";
+  const id_load_params = "load_params";
 
   //
   // parameters
   //
+  console.log(`params=${params}`);
+  let opt = {};
   let opt_list = ["w1", "w2", "h1", "h2", "bw", "bl",
 		  "dia1a", "dia1", "dia2a", "dia2",
 		  "d1", "d2", "bf",
-		  "needle_w", "needle_h", "needle_tf"];
-  let opt = {};
-  for (let k of opt_list) {
-    opt[k] = parseFloat(document.getElementById(k).value);
+		  "needle_w", "needle_h", "needle_ang", "needle_rot"];
+  if (params === undefined) {
+    for (let k of opt_list) {
+      if (k == "needle_rot") {
+        opt[k] = document.getElementById("needle_rot").checked;
+      } else {
+        opt[k] = parseFloat(document.getElementById(k).value);
+      }
+    }
+  } else {
+    opt = params;
+    for (let k of opt_list) {
+      if (k == "needle_rot") {
+        document.getElementById(k).checked = opt[k];
+      } else {
+        document.getElementById(k).value = opt[k];
+      }
+    }
   }
-  opt.needle_rot = document.getElementById("needle_rot").checked;
+  console.log(`opt=${opt}`);
 
   //
   // make objects and draw them
@@ -509,14 +530,14 @@ function gen_svg(id_canvas, id_download) {
 			opt.w1, opt.w2, opt.h1, opt.h2,
 			opt.bw, opt.bl, opt.bf,
 			opt.dia1, opt.d1, opt.d2,
-			opt.needle_w, opt.needle_h, opt.needle_tf,
+			opt.needle_w, opt.needle_h, opt.needle_ang,
 			opt.needle_rot);
   part1.draw([x0, y0, 0], STROKE_WIDTH);
 
   //
   // draw part2
   //
-  x0 += opt.w2 + 10;
+  x0 += opt.w2 + OFFSET_X;
   let part2 = new Part2(canvas, part1, opt.dia2a, opt.dia2);
   part2.draw([x0, y0, 0], STROKE_WIDTH);
 
@@ -528,17 +549,42 @@ function gen_svg(id_canvas, id_download) {
   //
   // update download link
   //
-  let blob = new Blob([ svg_text ], {"type": "text/plain"});
-  document.getElementById(id_download).href = window.URL.createObjectURL(blob);
+  let params_json = JSON.stringify(opt, null, '  ');
+  console.log(`params_json=${params_json}`);
+  let blob_params = new Blob([params_json], {"type": "application/json"});
+  document.getElementById(id_save_params).href
+    = window.URL.createObjectURL(blob_params);
+
+  let blob_svg = new Blob([ svg_text ], {"type": "text/plain"});
+  document.getElementById(id_download).href
+    = window.URL.createObjectURL(blob_svg);
 
   return svg_text;
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  let svg_text = gen_svg("canvas", "download_link");
+  let svg_text = gen_svg();
 });
 
 // タイマーを設定した方がいい?
 window.addEventListener('resize', function() {
-  let svg_text = gen_svg("canvas", "download_link");
+  let svg_text = gen_svg();
 });
+
+function load_params () {
+  let files = document.getElementById("load_params").files;
+  console.log(files[0]);
+  if (files.length !== 1) {
+    console.error('Please, select a file.');
+  } else {
+    reader = new FileReader();
+    reader.onloadend = (e) => {
+      params = JSON.parse(e.target.result);
+      console.log(params);
+      gen_svg(params);
+    };
+    reader.readAsText(files[0]);
+  }
+  
+  document.getElementById("load_params").value = "";
+}
