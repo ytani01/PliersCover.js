@@ -9,53 +9,56 @@
     <script src="pliers_cover.js"></script>
     <style>
       .title {
-      background-color:#FFFFFF;
-      text-align:center;
+          background-color:#FFFFFF;
+          text-align:center;
       }
       .abstract {
-      background-color:#FFFFFF;
-      text-align:center;
+          background-color:#FFFFFF;
+          text-align:center;
       }
       .area {
-      display: inline; display: inline-block; _display: inline;
-      background-color:#F8F8F8;
-      vertical-align:top;
+          display: inline; display: inline-block; _display: inline;
+          background-color:#F8F8F8;
+          vertical-align:top;
       }
       .canvas {
-      background-color:#DDDDDD;
-      border-style:solid;
-      border-color:#FFFFFF;
-      border-width:5px;
+          background-color:#DDDDDD;
+          border-style:solid;
+          border-color:#FFFFFF;
+          border-width:5px;
       }
     </style>
   </head>
   <body style="background-color:#CCCCCC;">
-    <h1 class="title">PliersCover.js: 工具カバー図面ジェネレータ
-      <small>Ver. 0.97</small></h1>
-    <p class="abstract">
-      ペンチやニッパーなど工具カバーの図面を自動生成します。<br />
-      [Download SVG]で保存したファイルは、
-      レーザーカッターの入力データとして利用できます。
-    </p>
-    <p>
-      <small>Load Params:</small><input id="load_params" type="file"
-                                        accept="application/json"
-                                        onClick="clear_filename()"
-                                        onChange="load_params()" />
-      <a id="save_params" href="#" download="pliers_cover_params.json">
-        <input id="btn1" type="button" value="Save Parameters" /></a>
-      &nbsp;&nbsp;
-      <a id="download_link" href="#" download="pliers_cover.svg">
-        <input id="btn2" type="button" value="Download SVG"></a>
-    </p>
+    <header>
+      <h1 class="title">PliersCover.js: 工具カバー図面ジェネレータ
+        <small>Ver. 0.97</small></h1>
+      <p class="abstract">
+        ペンチやニッパーなど工具カバーの図面を自動生成します。<br />
+        [Download SVG]で保存したファイルは、
+        レーザーカッターの入力データとして利用できます。
+      </p>
+      <p>
+        <small>Load Params:</small><input id="load_params" type="file"
+                                          accept="application/json"
+                                          onClick="clear_filename()"
+                                          onChange="load_params()" />
+        <a id="save_params" href="#" download="pliers_cover_params.json">
+          <input id="btn1" type="button" value="Save Parameters" /></a>
+        &nbsp;&nbsp;
+        <a id="download_link" href="#" download="pliers_cover.svg">
+          <input id="btn2" type="button" value="Download SVG"></a>
+      </p>
+    </header>
 
-    <div class="area" id="area_param" style="width:370px;">
-      <form>
-	<ul>
-	  <li>ベース:</li>
+    <main>
+      <div class="area" id="area_param" style="width:370px;">
+        <form>
 	  <ul>
-	    <li>先端の幅:
-	      <input id="w1" type="number" step="0.1" value="20"
+	    <li>ベース:</li>
+	    <ul>
+	      <li>先端の幅:
+	        <input id="w1" type="number" step="0.1" value="20"
 		       style="width:50px"
 		       onChange="gen_svg()"></li>
 	      <li>最大幅:
@@ -118,11 +121,11 @@
 	    <div hidden>
 	      <li>バンド:</li>
 	      <ul>
-	      <li>曲線係数
-		<input id="bf" type="number" step="0.1" value="0.7"
-		       style="width:50px"
-		       onChange="gen_svg()"></li>
-	    </ul>
+	        <li>曲線係数
+		  <input id="bf" type="number" step="0.1" value="0.7"
+		         style="width:50px"
+		         onChange="gen_svg()"></li>
+	      </ul>
 	    </div>
 	    
 	    <li>針穴:</li>
@@ -145,13 +148,15 @@
 		       onChange="gen_svg()"></li>
 	    </ul>
 	  </ul>
-	</ul>
-      </form>
-    </div><div class="area" style="width:50%;text-align:left;">
-      <div class="canvas" id="canvas" style="background-color:#F0F0F0;"></div>
-    </div>
-    <hr />
-    <div style="text-align: right;">(C) 2020
-      <a href="https://ytani01.github.io/PliersCover.js/">ytani01</a>
+        </form>
+      </div><div class="area" style="width:50%;text-align:left;">
+        <div class="canvas" id="canvas" style="background-color:#F0F0F0;"></div>
+      </div>
+    </main>
+    <footer>
+      <hr />
+      <div style="text-align: right;">(C) 2020
+        <a href="https://ytani01.github.io/PliersCover.js/">ytani01</a>
+    </footer>
   </body>
 </html>
