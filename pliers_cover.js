@@ -2,6 +2,8 @@
 // (c) 2020 Yoichi Tanibayashi
 //
 
+let param_file = "pliers_cover_param.json";
+
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -473,7 +475,7 @@ class SvgCanvas {
 function gen_svg(params) {
   const OFFSET_X = 5;
   const OFFSET_Y = 5;
-  const STROKE_WIDTH = 0.15;
+  const STROKE_WIDTH = 0.1;
 
   const id_canvas = "canvas";
   const id_download = "download_link";
@@ -552,6 +554,7 @@ function gen_svg(params) {
   let params_json = JSON.stringify(opt, null, '  ');
   console.log(`params_json=${params_json}`);
   let blob_params = new Blob([params_json], {"type": "application/json"});
+  document.getElementById(id_save_params).download = param_file;
   document.getElementById(id_save_params).href
     = window.URL.createObjectURL(blob_params);
 
@@ -571,9 +574,15 @@ window.addEventListener('resize', function() {
   let svg_text = gen_svg();
 });
 
+function clear_filename () {
+  document.getElementById("load_params").value = "";
+}
+
 function load_params () {
   let files = document.getElementById("load_params").files;
+  param_file = files[0].name;
   console.log(files[0]);
+  console.log(document.getElementById("load_params").value);
   if (files.length !== 1) {
     console.error('Please, select a file.');
   } else {
@@ -586,5 +595,5 @@ function load_params () {
     reader.readAsText(files[0]);
   }
   
-  document.getElementById("load_params").value = "";
+  document.getElementById("save_params").download = files[0].name;
 }
