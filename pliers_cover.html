@@ -37,15 +37,18 @@
       [Download SVG]で保存したファイルは、
       レーザーカッターの入力データとして利用できます。
     </p>
-    <small>Load Params:</small><input id="load_params" type="file"
-                                      accept="application/json"
-                                      onClick="clear_filename()"
-                                      onChange="load_params()" />
-    <a id="save_params" href="#" download="pliers_cover_params.json">
-      <input id="btn1" type="button" value="Save Parameters" /></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a id="download_link" href="#" download="pliers_cover.svg">
-      <input id="btn2" type="button" value="Download SVG"></a>
+    <p>
+      <small>Load Params:</small><input id="load_params" type="file"
+                                        accept="application/json"
+                                        onClick="clear_filename()"
+                                        onChange="load_params()" />
+      <a id="save_params" href="#" download="pliers_cover_params.json">
+        <input id="btn1" type="button" value="Save Parameters" /></a>
+      &nbsp;&nbsp;
+      <a id="download_link" href="#" download="pliers_cover.svg">
+        <input id="btn2" type="button" value="Download SVG"></a>
+    </p>
+
     <div class="area" id="area_param" style="width:370px;">
       <form>
 	<ul>
